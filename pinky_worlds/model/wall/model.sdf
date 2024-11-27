@@ -3,30 +3,30 @@
   <model name='wall'>
     <pose>1.66496 -2.7198 0 0 -0 0</pose>
     <link name="floor">
-  <collision name="floor_collision">
-    <geometry>
-      <box>
-        <size>10. 11.75 0.001</size> <!-- 바닥 크기 -->
-      </box>
-    </geometry>
-    <pose>0 0.002085 0.0 0 0 0</pose> <!-- 바닥 중심 위치 -->
-  </collision>
-  <visual name="floor_visual">
-    <geometry>
-      <box>
-        <size>10 11.75 0.001</size> <!-- 바닥 크기 -->
-      </box>
-    </geometry>
-    <material>
-      <script>
-        <uri>file://media/materials/scripts/gazebo.material</uri>
-        <name>Gazebo/Grey</name> <!-- 벽과 같은 색상 -->
-      </script>
-      <ambient>1 0.901961 0.780392 1</ambient>
-    </material>
-    <pose>0 0.002085 0.0 0 0 0</pose> <!-- 바닥 중심 위치 -->
-  </visual>
-</link>
+      <collision name="floor_collision">
+        <geometry>
+          <box>
+            <size>10. 11.75 0.001</size> <!-- 바닥 크기 -->
+          </box>
+        </geometry>
+        <pose>0 0.002085 0.0 0 0 0</pose> <!-- 바닥 중심 위치 -->
+      </collision>
+      <visual name="floor_visual">
+        <geometry>
+          <box>
+            <size>10 11.75 0.001</size> <!-- 바닥 크기 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name> <!-- 벽과 같은 색상 -->
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <pose>0 0.002085 0.0 0 0 0</pose> <!-- 바닥 중심 위치 -->
+      </visual>
+    </link>
     <link name='Wall_11'>
       <collision name='Wall_11_Collision'>
         <geometry>
