@@ -6,10 +6,11 @@
             <update_rate>30.0</update_rate>
             <camera name="camera">
                 <pose>0 0 0 0 -1.5707 0</pose>
+                <update_rate>60</update_rate>
                 <horizontal_fov>1.08</horizontal_fov>
                 <image>
-                    <width>1280</width>
-                    <height>720</height>
+                    <width>640</width>
+                    <height>360</height>
                     <format>R8G8B8</format>
                 </image>
                 <clip>
