@@ -28,7 +28,7 @@
 
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find pinky_gazebo)/config/my_controllers.yaml</parameters>
+            <parameters>$(find pinky_gazebo)/param/diff_controller.yaml</parameters>
             <ros>
                 <remapping>diff_cont/cmd_vel_unstamped:=cmd_vel</remapping> 
                 <remapping>diff_cont/odom:=odom</remapping> 

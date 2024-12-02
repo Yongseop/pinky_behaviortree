@@ -16,17 +16,17 @@ def generate_launch_description():
 
     # Paths
     gazebo_ros_path = get_package_share_directory('gazebo_ros')
-    pinky_worlds_path = get_package_share_directory('pinky_worlds')
+    pinky_gazebo_path = get_package_share_directory('pinky_gazebo')
 
     # PathJoinSubstitution for dynamic path resolution
     world_file_path = PathJoinSubstitution([
-        pinky_worlds_path, 'world', LaunchConfiguration('world_name')
+        pinky_gazebo_path, 'world', LaunchConfiguration('world_name')
     ])
 
-    # Set GAZEBO_MODEL_PATH to the model folder of pinky_worlds package
+    # Set GAZEBO_MODEL_PATH to the model folder of pinky_gazebo package
     set_gazebo_model_path = SetEnvironmentVariable(
         name='GAZEBO_MODEL_PATH',
-        value=PathJoinSubstitution([pinky_worlds_path, 'model'])
+        value=PathJoinSubstitution([pinky_gazebo_path, 'model'])
     )
 
     # Include gzserver.launch.py

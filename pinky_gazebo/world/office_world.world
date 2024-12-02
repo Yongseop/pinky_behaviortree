@@ -25,7 +25,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>5 6</size>
+              <size>4 5</size>
             </plane>
           </geometry>
           <surface>
@@ -51,7 +51,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>5 6</size>
+              <size>4 5</size>
             </plane>
           </geometry>
           <material>
