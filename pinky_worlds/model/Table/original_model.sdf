@@ -1,14 +1,12 @@
-<?xml version="1.5"?>
 <sdf version="1.5">
   <model name="Table">
     <static>true</static>
     <link name="link">
-      <!-- Collision: surface -->
       <collision name="surface">
-        <pose>0 0 0.4 0 0 0</pose> <!-- z: 1.0 * 0.4 = 0.4 -->
+        <pose>0 0 1.0 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.6 0.32 0.012</size> <!-- x:1.5*0.4=0.6, y:0.8*0.4=0.32, z:0.03*0.4=0.012 -->
+            <size>1.5 0.8 0.03</size>
           </box>
         </geometry>
         <surface>
@@ -20,12 +18,11 @@
           </friction>
         </surface>
       </collision>
-      <!-- Visual: visual1 -->
       <visual name="visual1">
-        <pose>0 0 0.4 0 0 0</pose> <!-- z:1.0*0.4=0.4 -->
+        <pose>0 0 1.0 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.6 0.32 0.012</size> <!-- x:1.5*0.4=0.6, y:0.8*0.4=0.32, z:0.03*0.4=0.012 -->
+            <size>1.5 0.8 0.03</size>
           </box>
         </geometry>
         <material>
@@ -42,23 +39,21 @@
           </pbr>
         </material>
       </visual>
-      <!-- Collision: front_left_leg -->
       <collision name="front_left_leg">
-        <pose>0.272 0.152 0.2 0 0 0</pose> <!-- x:0.68*0.4=0.272, y:0.38*0.4=0.152, z:0.5*0.4=0.2 -->
+        <pose>0.68 0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
       </collision>
-      <!-- Visual: front_left_leg -->
       <visual name="front_left_leg">
-        <pose>0.272 0.152 0.2 0 0 0</pose> <!-- 동일 -->
+        <pose>0.68 0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
         <material>
@@ -69,23 +64,21 @@
           </script>
         </material>
       </visual>
-      <!-- Collision: front_right_leg -->
       <collision name="front_right_leg">
-        <pose>0.272 -0.152 0.2 0 0 0</pose> <!-- x:0.68*0.4=0.272, y:-0.38*0.4=-0.152, z:0.5*0.4=0.2 -->
+        <pose>0.68 -0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
       </collision>
-      <!-- Visual: front_right_leg -->
       <visual name="front_right_leg">
-        <pose>0.272 -0.152 0.2 0 0 0</pose> <!-- 동일 -->
+        <pose>0.68 -0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
         <material>
@@ -96,23 +89,21 @@
           </script>
         </material>
       </visual>
-      <!-- Collision: back_right_leg -->
       <collision name="back_right_leg">
-        <pose>-0.272 -0.152 0.2 0 0 0</pose> <!-- x:-0.68*0.4=-0.272, y:-0.38*0.4=-0.152, z:0.5*0.4=0.2 -->
+        <pose>-0.68 -0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
       </collision>
-      <!-- Visual: back_right_leg -->
       <visual name="back_right_leg">
-        <pose>-0.272 -0.152 0.2 0 0 0</pose> <!-- 동일 -->
+        <pose>-0.68 -0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
         <material>
@@ -123,23 +114,21 @@
           </script>
         </material>
       </visual>
-      <!-- Collision: back_left_leg -->
       <collision name="back_left_leg">
-        <pose>-0.272 0.152 0.2 0 0 0</pose> <!-- x:-0.68*0.4=-0.272, y:0.38*0.4=0.152, z:0.5*0.4=0.2 -->
+        <pose>-0.68 0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
       </collision>
-      <!-- Visual: back_left_leg -->
       <visual name="back_left_leg">
-        <pose>-0.272 0.152 0.2 0 0 0</pose> <!-- 동일 -->
+        <pose>-0.68 0.38 0.5 0 0 0</pose>
         <geometry>
           <cylinder>
-            <radius>0.008</radius> <!-- 0.02*0.4=0.008 -->
-            <length>0.4</length> <!-- 1.0*0.4=0.4 -->
+            <radius>0.02</radius>
+            <length>1.0</length>
           </cylinder>
         </geometry>
         <material>

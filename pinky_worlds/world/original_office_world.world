@@ -93,76 +93,84 @@
     </spherical_coordinates>
     <include>
       <uri>model://wall</uri>
-      <pose>-0.053344 -0.1996104 0 0 -0 0</pose> <!-- Original: -0.13336 -0.499026 0 0 -0 0 -->
+      <pose>-0.13336 -0.499026 0 0 -0 0</pose>
     </include>
     <include>
       <uri>model://Casual female</uri>
-      <pose>0.477188 1.639508 0 0 -0 0</pose> <!-- Original: 1.19297 4.09877 0 0 -0 0 -->
+      <pose>1.19297 4.09877 0 0 -0 0</pose>
       <name>casual_female</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-1.27677 -1.09894 0 0 -0 0</pose> <!-- Original: -3.19292 -2.74785 0 0 -0 0 -->
+      <pose>-3.19292 -2.74785 0 0 -0 0</pose>
       <name>Table</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-0.668968 -1.09972 0 0 -0 0</pose> <!-- Original: -1.67242 -2.74931 0 0 -0 0 -->
+      <pose>-1.67242 -2.74931 0 0 -0 0</pose>
       <name>Table_0</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-1.275796 -1.436376 0 0 -0 0</pose> <!-- Original: -3.18949 -3.59094 0 0 -0 0 -->
+      <pose>-3.18949 -3.59094 0 0 -0 0</pose>
       <name>Table_1</name>
     </include>
+
     <include>
       <uri>model://Table</uri>
-      <pose>-0.664404 -1.441344 0 0 -0 0</pose> <!-- Original: -1.66101 -3.60346 0 0 -0 0 -->
+      <pose>-1.66101 -3.60346 0 0 -0 0</pose>
       <name>Table_2</name>
     </include>
+
     <include>
       <uri>model://Table</uri>
-      <pose>-0.1450252 1.390664 0 0 -0 0</pose> <!-- Original: -0.362563 3.47666 0 0 -0 0 -->
+      <pose>-0.362563 3.47666 0 0 -0 0</pose>
       <name>Table_3</name>
     </include>
     <include>
       <uri>model://Casual female</uri>
-      <pose>0.4912888 -1.024512 0 0 0 -1.75297</pose> <!-- Original: 1.22822 -2.56128 0 0 0 -1.75297 -->
+      <pose>1.22822 -2.56128 0 0 0 -1.75297</pose>
       <name>casual_female_0</name>
     </include>
+
     <include>
       <uri>model://foldable_chair</uri>
-      <pose>-0.10443 1.78224 0 0 -0 0</pose> <!-- Original: -0.261075 4.4556 0 0 -0 0 -->
+      <pose>-0.261075 4.4556 0 0 -0 0</pose>
       <name>foldable_chair</name>
     </include>
+
     <include>
       <uri>model://foldable_chair</uri>
-      <pose>-1.68278 -0.177761 0 0 -0 0</pose> <!-- Original: -4.20695 -0.444402 0 0 -0 0 -->
+      <pose>-4.20695 -0.444402 0 0 -0 0</pose>
       <name>foldable_chair_0</name>
     </include>
+
     <include>
       <uri>model://foldable_chair</uri>
-      <pose>-1.414412 -0.1955712 0 0 -0 0</pose> <!-- Original: -3.53603 -0.488928 0 0 -0 0 -->
+      <pose>-3.53603 -0.488928 0 0 -0 0</pose>
       <name>foldable_chair_1</name>
     </include>
+
     <include>
       <uri>model://foldable_chair</uri>
-      <pose>-0.6721332 -1.924532 0 0 -0 1.247576</pose> <!-- Original: -1.68033 -4.81133 0 0 -0 3.11894 -->
+      <pose>-1.68033 -4.81133 0 0 -0 3.11894</pose>
       <name>foldable_chair_2</name>
     </include>
+
     <include>
       <uri>model://foldable_chair</uri>
-      <pose>-1.1944688 -1.884608 0 0 -0 1.247576</pose> <!-- Original: -2.98617 -4.71152 0 0 -0 3.11894 -->
+      <pose>-2.98617 -4.71152 0 0 -0 3.11894</pose>
       <name>foldable_chair_2_clone</name>
     </include>
+
     <include>
       <uri>model://shelf</uri>
-      <pose>1.752628 1.477456 0.0008376 -0.0 -0.0 1.5745</pose> <!-- Original: 4.38157 3.69364 0.002094 -0.005788 -0.000154 1.57452 -->
+      <pose>4.38157 3.69364 0.002094 -0.005788 -0.000154 1.57452</pose>
       <name>shelf</name>
     </include>
     <include>
       <uri>model://shelf</uri>
-      <pose>0.978332 -0.365184 0.0008376 -0.0 -0.0 1.5745</pose> <!-- Original: 2.44583 -0.91296 0.002094 -0.005788 -0.000154 1.57452 -->
+      <pose>2.44583 -0.91296 0.002094 -0.005788 -0.000154 1.57452</pose>
       <name>shelf_clone</name>
     </include>
     <state world_name='default'>
