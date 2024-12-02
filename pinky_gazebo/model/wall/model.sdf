@@ -1,0 +1,462 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='wall_scaled'>
+    <!-- 모델 전체 포즈 (스케일링 적용) -->
+    <pose>0.665984 -1.08792 0 0 -0 0</pose> <!-- x:1.66496*0.4≈0.665984, y:-2.7198*0.4≈-1.08792, z:0*0.4=0 -->
+
+    <!-- 바닥 링크 -->
+    <link name="floor">
+      <collision name="floor_collision">
+        <geometry>
+          <box>
+            <size>4.0 4.7 0.0004</size> <!-- x:10*0.4=4.0, y:11.75*0.4=4.7, z:0.001*0.4=0.0004 -->
+          </box>
+        </geometry>
+        <pose>0 0.000834 0.0 0 0 0</pose> <!-- y:0.002085*0.4≈0.000834 -->
+      </collision>
+      <visual name="floor_visual">
+        <geometry>
+          <box>
+            <size>4.0 4.7 0.0004</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name> <!-- 벽과 같은 색상 -->
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <pose>0 0.000834 0.0 0 0 0</pose> <!-- 동일 -->
+      </visual>
+    </link>
+
+    <!-- Wall_11 링크 -->
+    <link name='Wall_11'>
+      <collision name='Wall_11_Collision'>
+        <geometry>
+          <box>
+            <size>4.7 0.06 1.0</size> <!-- x:11.75*0.4=4.7, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- z:1.25*0.4=0.5 -->
+      </collision>
+      <visual name='Wall_11_Visual'>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>4.7 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose>-1.97532 0.000834 0 0 -0 -1.5708</pose> <!-- x:-4.9383*0.4≈-1.97532, y:0.002085*0.4≈0.000834, z:0*0.4=0, yaw:-1.5708 -->
+    </link>
+
+    <!-- Wall_13 링크 -->
+    <link name='Wall_13'>
+      <collision name='Wall_13_Collision'>
+        <geometry>
+          <box>
+            <size>4.7 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+      <visual name='Wall_13_Visual'>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>4.7 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose>1.97532 0.000834 0 0 -0 -1.5708</pose> <!-- x:4.9383*0.4≈1.97532, y:0.002085*0.4≈0.000834, yaw:-1.5708 -->
+    </link>
+
+    <!-- Wall_17 링크 -->
+    <link name='Wall_17'>
+      <collision name='Wall_17_Collision'>
+        <geometry>
+          <box>
+            <size>4.01064 0.06 1.0</size> <!-- x:10.0266*0.4≈4.01064, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+      <visual name='Wall_17_Visual'>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>4.01064 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose>0 -2.31916 0 0 -0 0</pose> <!-- y:-5.79791*0.4≈-2.31916 -->
+    </link>
+
+    <!-- Wall_25 링크 -->
+    <link name='Wall_25'>
+      <pose>0.86568 -1.050836 0 0 -0 1.5708</pose> <!-- x:2.1642*0.4≈0.86568, y:-2.62709*0.4≈-1.050836, yaw:1.5708 -->
+      
+      <!-- Wall_25_Visual_0 -->
+      <visual name='Wall_25_Visual_0'>
+        <pose>-0.97362 0 0.5 0 -0 0</pose> <!-- x:-2.43405*0.4≈-0.97362, z:1.25*0.4=0.5 -->
+        <geometry>
+          <box>
+            <size>0.652764 0.06 1.0</size> <!-- x:1.63191*0.4≈0.652764, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <!-- Wall_25_Collision_0 -->
+      <collision name='Wall_25_Collision_0'>
+        <geometry>
+          <box>
+            <size>0.652764 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>-0.97362 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+
+      <!-- Wall_25_Visual_1 -->
+      <visual name='Wall_25_Visual_1'>
+        <pose>0.60752 0 0.5 0 -0 0</pose> <!-- x:1.5188*0.4≈0.60752, z:1.25*0.4=0.5 -->
+        <geometry>
+          <box>
+            <size>1.38496 0.06 1.0</size> <!-- x:3.4624*0.4≈1.38496, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <!-- Wall_25_Collision_1 -->
+      <collision name='Wall_25_Collision_1'>
+        <geometry>
+          <box>
+            <size>1.38496 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>0.60752 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+
+      <!-- Wall_25_Visual_2 -->
+      <visual name='Wall_25_Visual_2'>
+        <pose>-0.366099 0 0.9 0 -0 0</pose> <!-- x:-0.915247*0.4≈-0.366099, z:2.25*0.4=0.9 -->
+        <geometry>
+          <box>
+            <size>0.562276 0.06 0.2</size> <!-- x:1.40569*0.4≈0.562276, y:0.15*0.4=0.06, z:0.5*0.4=0.2 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <!-- Wall_25_Collision_2 -->
+      <collision name='Wall_25_Collision_2'>
+        <geometry>
+          <box>
+            <size>0.562276 0.06 0.2</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>-0.366099 0 0.9 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+    </link>
+
+    <!-- Wall_26 링크 -->
+    <link name='Wall_26'>
+      <pose>-0.55432 0.219166 0 0 -0 3.14159</pose> <!-- x:-1.3858*0.4≈-0.55432, y:0.547915*0.4≈0.219166, yaw:3.14159 -->
+
+      <collision name='Wall_26_Collision_0'>
+        <geometry>
+          <box>
+            <size>0.588512 0.06 1.0</size> <!-- x:1.47128*0.4≈0.588512, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <pose>-1.155744 0 0.5 0 -0 0</pose> <!-- x:-1.155744, y:0, z:0.5 -->
+      </collision>
+      <visual name='Wall_26_Visual_0'>
+        <pose>-1.155744 0 0.5 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>0.588512 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <collision name='Wall_26_Collision_1'>
+        <geometry>
+          <box>
+            <size>1.563116 0.06 1.0</size> <!-- x:3.90779*0.4≈1.563116, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <pose>0.668444 0 0.5 0 -0 3.14159</pose> <!-- x:0.668444, y:0, z:0.5, yaw:3.14159 -->
+      </collision>
+      <visual name='Wall_26_Visual_1'>
+        <pose>0.668444 0 0.5 0 -0 3.14159</pose> <!-- x:1.67111*0.4≈0.668444, y:0, z:1.25*0.4=0.5, yaw:3.14159 -->
+        <geometry>
+          <box>
+            <size>1.563116 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <collision name='Wall_26_Collision_2'>
+        <geometry>
+          <box>
+            <size>0.748372 0.06 0.2</size> <!-- x:1.87093*0.4≈0.748372, y:0.15*0.4=0.06, z:0.5*0.4=0.2 -->
+          </box>
+        </geometry>
+        <pose>-0.487298 0 0.9 0 -0 0</pose> <!-- x:-0.487298, y:0, z:0.9 -->
+      </collision>
+      <visual name='Wall_26_Visual_2'>
+        <pose>-0.487298 0 0.9 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>0.748372 0.06 0.2</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+    </link>
+
+    <!-- Wall_28 링크 -->
+    <link name='Wall_28'>
+      <collision name='Wall_28_Collision'>
+        <geometry>
+          <box>
+            <size>0.7 0.06 0.8</size> <!-- x:1.75*0.4=0.7, y:0.15*0.4=0.06, z:2*0.4=0.8 -->
+          </box>
+        </geometry>
+        <pose>0 0 0.4 0 -0 0</pose> <!-- z:1*0.4=0.4 -->
+      </collision>
+      <visual name='Wall_28_Visual'>
+        <pose>0 0 0.4 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>0.7 0.06 0.8</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose>0.3092168 0.55352 0 0 -0 1.5708</pose> <!-- x:0.773042*0.4≈0.3092168, y:1.3838*0.4≈0.55352, yaw:1.5708 -->
+    </link>
+
+    <!-- Wall_32 링크 -->
+    <link name='Wall_32'>
+      <collision name='Wall_32_Collision'>
+        <geometry>
+          <box>
+            <size>0.5 0.48 1.0</size> <!-- x:1.25*0.4=0.5, y:1.2*0.4=0.48, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- z:1.25*0.4=0.5 -->
+      </collision>
+      <visual name='Wall_32_Visual'>
+        <pose>0 0 0.5 0 -0 0</pose> <!-- 동일 -->
+        <geometry>
+          <box>
+            <size>0.5 0.48 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose>1.106388 1.254576 0 0 -0 -1.5708</pose> <!-- x:2.76597*0.4≈1.106388, y:3.13644*0.4≈1.254576, yaw:-1.5708 -->
+    </link>
+
+    <!-- Wall_9 링크 -->
+    <link name='Wall_9'>
+      <pose>0 2.32083 0 0 -0 0</pose> <!-- y:5.80208*0.4≈2.32083 -->
+
+      <visual name='Wall_9_Visual_0'>
+        <pose>-1.68861 0 0.5 0 -0 0</pose> <!-- x:-4.22153*0.4≈-1.68861, z:1.25*0.4=0.5 -->
+        <geometry>
+          <box>
+            <size>0.633416 0.06 1.0</size> <!-- x:1.58354*0.4≈0.633416, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <collision name='Wall_9_Collision_0'>
+        <geometry>
+          <box>
+            <size>0.633416 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>-1.68861 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+
+      <visual name='Wall_9_Visual_1'>
+        <pose>0.57762 0 0.5 0 -0 0</pose> <!-- x:1.44405*0.4≈0.57762, z:1.25*0.4=0.5 -->
+        <geometry>
+          <box>
+            <size>2.855404 0.06 1.0</size> <!-- x:7.13851*0.4≈2.855404, y:0.15*0.4=0.06, z:2.5*0.4=1.0 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <collision name='Wall_9_Collision_1'>
+        <geometry>
+          <box>
+            <size>2.855404 0.06 1.0</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>0.57762 0 0.5 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+
+      <visual name='Wall_9_Visual_2'>
+        <pose>-1.11099 0 0.9 0 -0 0</pose> <!-- x:-2.77748*0.4≈-1.11099, z:2.25*0.4=0.9 -->
+        <geometry>
+          <box>
+            <size>0.521824 0.06 0.2</size> <!-- x:1.30456*0.4≈0.521824, y:0.15*0.4=0.06, z:0.5*0.4=0.2 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>1 0.901961 0.780392 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+
+      <collision name='Wall_9_Collision_2'>
+        <geometry>
+          <box>
+            <size>0.521824 0.06 0.2</size> <!-- 동일 -->
+          </box>
+        </geometry>
+        <pose>-1.11099 0 0.9 0 -0 0</pose> <!-- 동일 -->
+      </collision>
+    </link>
+
+    <!-- 전체 모델을 정적으로 설정 -->
+    <static>true</static>
+  </model>
+</sdf>

@@ -1,0 +1,193 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>5 6</size>
+            </plane>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode />
+            </contact>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode />
+              </torsional>
+            </friction>
+            <bounce />
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>5 6</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+            <ambient>1 0.901961 0.780392 1</ambient>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic' />
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind />
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <include>
+      <uri>model://wall</uri>
+      <pose>-0.13336 -0.499026 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>model://Casual female</uri>
+      <pose>1.19297 4.09877 0 0 -0 0</pose>
+      <name>casual_female</name>
+    </include>
+    <include>
+      <uri>model://Table</uri>
+      <pose>-3.19292 -2.74785 0 0 -0 0</pose>
+      <name>Table</name>
+    </include>
+    <include>
+      <uri>model://Table</uri>
+      <pose>-1.67242 -2.74931 0 0 -0 0</pose>
+      <name>Table_0</name>
+    </include>
+    <include>
+      <uri>model://Table</uri>
+      <pose>-3.18949 -3.59094 0 0 -0 0</pose>
+      <name>Table_1</name>
+    </include>
+
+    <include>
+      <uri>model://Table</uri>
+      <pose>-1.66101 -3.60346 0 0 -0 0</pose>
+      <name>Table_2</name>
+    </include>
+
+    <include>
+      <uri>model://Table</uri>
+      <pose>-0.362563 3.47666 0 0 -0 0</pose>
+      <name>Table_3</name>
+    </include>
+    <include>
+      <uri>model://Casual female</uri>
+      <pose>1.22822 -2.56128 0 0 0 -1.75297</pose>
+      <name>casual_female_0</name>
+    </include>
+
+    <include>
+      <uri>model://foldable_chair</uri>
+      <pose>-0.261075 4.4556 0 0 -0 0</pose>
+      <name>foldable_chair</name>
+    </include>
+
+    <include>
+      <uri>model://foldable_chair</uri>
+      <pose>-4.20695 -0.444402 0 0 -0 0</pose>
+      <name>foldable_chair_0</name>
+    </include>
+
+    <include>
+      <uri>model://foldable_chair</uri>
+      <pose>-3.53603 -0.488928 0 0 -0 0</pose>
+      <name>foldable_chair_1</name>
+    </include>
+
+    <include>
+      <uri>model://foldable_chair</uri>
+      <pose>-1.68033 -4.81133 0 0 -0 3.11894</pose>
+      <name>foldable_chair_2</name>
+    </include>
+
+    <include>
+      <uri>model://foldable_chair</uri>
+      <pose>-2.98617 -4.71152 0 0 -0 3.11894</pose>
+      <name>foldable_chair_2_clone</name>
+    </include>
+
+    <include>
+      <uri>model://shelf</uri>
+      <pose>4.38157 3.69364 0.002094 -0.005788 -0.000154 1.57452</pose>
+      <name>shelf</name>
+    </include>
+    <include>
+      <uri>model://shelf</uri>
+      <pose>2.44583 -0.91296 0.002094 -0.005788 -0.000154 1.57452</pose>
+      <name>shelf_clone</name>
+    </include>
+    <state world_name='default'>
+      <sim_time>445 133000000</sim_time>
+      <real_time>456 465687715</real_time>
+      <wall_time>1732688211 654021034</wall_time>
+      <iterations>445133</iterations>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>6.54434 -8.21051 11.4756 0 0.826423 2.28441</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>
