@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>pinky_navigation</name>
+  <version>0.0.0</version>
+  <description>Navigation package for Pinky robot</description>
+  <maintainer email="your_email@example.com">your_name</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>nav2_bringup</depend>
+  <depend>nav2_costmap_2d</depend>
+  <depend>nav2_controller</depend>
+  <depend>nav2_planner</depend>
+  <depend>nav2_bt_navigator</depend>
+  <depend>nav2_amcl</depend>
+  <depend>nav2_map_server</depend>
+  <depend>nav2_lifecycle_manager</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>nav2_behavior_tree</depend> 
+  <depend>nav2_regulated_pure_pursuit_controller</depend>
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

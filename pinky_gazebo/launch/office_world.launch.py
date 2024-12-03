@@ -66,24 +66,13 @@ def generate_launch_description():
         )
     )
     
-    # 컨트롤러 로드 명령어 정의
-    load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_broadcaster'],
-        output='screen'
-    )
-
-    load_base_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'diff_cont'],
-        output='screen'
-    )
+   
     
     # pinky_upload_launch 및 컨트롤러 로드 명령어를 지연 실행 (예: 5초 후)
     delayed_actions = TimerAction(
         period=5.0,  # 지연 시간 (초)
         actions=[
-            pinky_upload_launch,
-            load_joint_state_controller,
-            load_base_controller
+            pinky_upload_launch
         ]
     )
     return LaunchDescription([
