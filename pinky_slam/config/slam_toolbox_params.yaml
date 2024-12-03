@@ -1,0 +1,13 @@
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+    slam_mode: mapping  # mapping, localization, or lifecycle
+    map_file_name: "map.yaml"
+    resolution: 0.05
+    publish_map: true
+    use_scan_matching: true
+    scan_topic: "/scan"
+    odom_frame: "odom"
+    base_frame: "base_link"
+    map_frame: "map"
+    # 추가 파라미터는 필요에 따라 설정
