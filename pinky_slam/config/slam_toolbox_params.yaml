@@ -1,13 +1,12 @@
 slam_toolbox:
   ros__parameters:
-    use_sim_time: true
-    slam_mode: mapping  # mapping, localization, or lifecycle
-    map_file_name: "map.yaml"
-    resolution: 0.05
-    publish_map: true
-    use_scan_matching: true
-    scan_topic: "/scan"
-    odom_frame: "odom"
-    base_frame: "base_link"
-    map_frame: "map"
-    # 추가 파라미터는 필요에 따라 설정
+    use_sim_time: true  # 시뮬레이션 시간 사용
+    slam_mode: mapping  # SLAM 모드 선택 (mapping: 맵 생성, localization: 위치 추정, lifecycle: 관리 모드)
+    map_file_name: "map.yaml"  # 저장 또는 로드할 맵 파일 이름
+    resolution: 0.05  # 생성할 맵의 해상도 (m/픽셀)
+    publish_map: true  # 맵을 주기적으로 퍼블리시할지 여부
+    use_scan_matching: true  # 레이저 스캔 매칭을 SLAM에 사용할지 여부
+    scan_topic: "/scan"  # 레이저 스캔 데이터가 게시되는 토픽 이름
+    odom_frame: "odom"  # 로봇의 오도메트리 참조 프레임
+    base_frame: "base_link"  # 로봇의 베이스 프레임
+    map_frame: "map"  # 생성된 맵의 참조 프레임
