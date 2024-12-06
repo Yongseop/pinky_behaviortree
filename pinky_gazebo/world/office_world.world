@@ -165,6 +165,32 @@
       <pose>0.978332 -0.365184 0.0008376 -0.0 -0.0 1.5745</pose> <!-- Original: 2.44583 -0.91296 0.002094 -0.005788 -0.000154 1.57452 -->
       <name>shelf_clone</name>
     </include>
+    <include>
+      <uri>model://Marker0</uri>
+      <pose>-0.93142 0.05 0.0000 -0.0 -0.0 1.5707</pose>
+      <name>Marker0</name>
+    </include>
+    <include>
+      <uri>model://Marker1</uri>
+      <pose>-2.00336 0.653521 0.0000 -0.0 -0.0 0.0</pose>
+      <name>Marker1</name>
+    </include>
+    <include>
+      <uri>model://Marker2</uri>
+      <pose>0.2244 0.372729 0.0000 -0.0 -0.0 -3.141591</pose> 
+      <name>Marker2</name>
+    </include>
+    <include>
+      <uri>model://Marker3</uri>
+      <pose>-0.01 -2.48729 0.0000 -0.0 -0.0  1.5707</pose> 
+      <name>Marker3</name>
+    </include>
+       <include>
+      <uri>model://Marker4</uri>
+      <pose>1.87 -1.5 0.0000 -0.0 -0.0  -3.14159</pose> 
+      <name>Marker4</name>
+    </include> 
+
     <state world_name='default'>
       <sim_time>445 133000000</sim_time>
       <real_time>456 465687715</real_time>
@@ -176,7 +202,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>6.54434 -8.21051 11.4756 0 0.826423 2.28441</pose>
+        <pose>-2.72277 4.31383 4.82836 -0 0.776 -1.12278</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

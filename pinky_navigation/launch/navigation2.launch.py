@@ -32,7 +32,7 @@ def generate_launch_description():
         default=os.path.join(
             get_package_share_directory('pinky_navigation'),
             'map',
-            'test.yaml'))
+            'office.yaml'))
 
     param_file_name = 'nav2_param.yaml'
     param_dir = LaunchConfiguration(
