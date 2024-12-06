@@ -6,7 +6,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://marker1/meshes/Marker1.dae</uri>
+            <uri>model://Marker1/meshes/Marker1.dae</uri>
           </mesh>
         </geometry>
       </visual>
