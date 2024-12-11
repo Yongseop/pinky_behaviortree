@@ -37,7 +37,7 @@ ros2 run nav2_map_server map_saver_cli -f <map name>
 
 ### 5. Navigation2 
 -------------
-#### launch cartographer
+#### launch nav2
 ```
 ros2 launch pinky_navigation navigation2.launch.py use_sim_time:=true
 map:=<map name>
