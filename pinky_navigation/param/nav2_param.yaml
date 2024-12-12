@@ -3,6 +3,8 @@ amcl:
     use_sim_time: True  # 시뮬레이션 시간 사용
     set_initial_pose: true  # AMCL이 초기 위치를 수동으로 설정하도록 활성화
     initial_pose: [0.0, 0.0, 0.0, 0.0]  # 로봇의 초기 위치 (x, y, z, yaw)
+    update_min_a: 0.1  # AMCL의 업데이트를 위한  최소 이동거리량
+    update_min_d: 0.1  # AMCL의 업데이트를 위한  최소 회전거리량
 
 amcl_map_client:
   ros__parameters:
