@@ -1,10 +1,10 @@
-<?xml version="1.5"?>
+<?xml version="1.0" ?>
 <sdf version="1.5">
   <model name="Table">
     <static>true</static>
-    <link name="link">
+    <link name="Table_link_${model.name}">
       <!-- Collision: surface -->
-      <collision name="surface">
+      <collision name="Table_surface_${model.name}">
         <pose>0 0 0.4 0 0 0</pose> <!-- z: 1.0 * 0.4 = 0.4 -->
         <geometry>
           <box>
@@ -21,7 +21,7 @@
         </surface>
       </collision>
       <!-- Visual: visual1 -->
-      <visual name="visual1">
+      <visual name="Table_visual1_${model.name}">
         <pose>0 0 0.4 0 0 0</pose> <!-- z:1.0*0.4=0.4 -->
         <geometry>
           <box>
@@ -43,7 +43,7 @@
         </material>
       </visual>
       <!-- Collision: front_left_leg -->
-      <collision name="front_left_leg">
+      <collision name="Table_front_left_leg_${model.name}">
         <pose>0.272 0.152 0.2 0 0 0</pose> <!-- x:0.68*0.4=0.272, y:0.38*0.4=0.152, z:0.5*0.4=0.2 -->
         <geometry>
           <cylinder>
@@ -53,7 +53,7 @@
         </geometry>
       </collision>
       <!-- Visual: front_left_leg -->
-      <visual name="front_left_leg">
+      <visual name="Table_front_left_leg_visual_${model.name}">
         <pose>0.272 0.152 0.2 0 0 0</pose> <!-- 동일 -->
         <geometry>
           <cylinder>
@@ -70,7 +70,7 @@
         </material>
       </visual>
       <!-- Collision: front_right_leg -->
-      <collision name="front_right_leg">
+      <collision name="Table_front_right_leg_${model.name}">
         <pose>0.272 -0.152 0.2 0 0 0</pose> <!-- x:0.68*0.4=0.272, y:-0.38*0.4=-0.152, z:0.5*0.4=0.2 -->
         <geometry>
           <cylinder>
@@ -80,7 +80,7 @@
         </geometry>
       </collision>
       <!-- Visual: front_right_leg -->
-      <visual name="front_right_leg">
+      <visual name="Table_front_right_leg_visual_${model.name}">
         <pose>0.272 -0.152 0.2 0 0 0</pose> <!-- 동일 -->
         <geometry>
           <cylinder>
@@ -97,7 +97,7 @@
         </material>
       </visual>
       <!-- Collision: back_right_leg -->
-      <collision name="back_right_leg">
+      <collision name="Table_back_right_leg_${model.name}">
         <pose>-0.272 -0.152 0.2 0 0 0</pose> <!-- x:-0.68*0.4=-0.272, y:-0.38*0.4=-0.152, z:0.5*0.4=0.2 -->
         <geometry>
           <cylinder>
@@ -107,7 +107,7 @@
         </geometry>
       </collision>
       <!-- Visual: back_right_leg -->
-      <visual name="back_right_leg">
+      <visual name="Table_back_right_leg_visual_${model.name}">
         <pose>-0.272 -0.152 0.2 0 0 0</pose> <!-- 동일 -->
         <geometry>
           <cylinder>
@@ -124,7 +124,7 @@
         </material>
       </visual>
       <!-- Collision: back_left_leg -->
-      <collision name="back_left_leg">
+      <collision name="Table_back_left_leg_${model.name}">
         <pose>-0.272 0.152 0.2 0 0 0</pose> <!-- x:-0.68*0.4=-0.272, y:0.38*0.4=0.152, z:0.5*0.4=0.2 -->
         <geometry>
           <cylinder>
@@ -134,7 +134,7 @@
         </geometry>
       </collision>
       <!-- Visual: back_left_leg -->
-      <visual name="back_left_leg">
+      <visual name="Table_back_left_leg_visual_${model.name}">
         <pose>-0.272 0.152 0.2 0 0 0</pose> <!-- 동일 -->
         <geometry>
           <cylinder>

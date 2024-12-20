@@ -45,7 +45,7 @@ def generate_launch_description():
         launch_arguments={
             'verbose': 'true',
             'physics': 'ode',
-            'lockstep': 'true',
+            'lockstep': 'false',
             'world': world_file_path
         }.items()
     )
