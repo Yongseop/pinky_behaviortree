@@ -103,27 +103,27 @@
     <include>
       <uri>model://Table</uri>
       <pose>-1.27677 -1.09894 0 0 -0 0</pose> <!-- Original: -3.19292 -2.74785 0 0 -0 0 -->
-      <name>Table</name>
-    </include>
-    <include>
-      <uri>model://Table</uri>
-      <pose>-0.668968 -1.09972 0 0 -0 0</pose> <!-- Original: -1.67242 -2.74931 0 0 -0 0 -->
       <name>Table_0</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-1.275796 -1.436376 0 0 -0 0</pose> <!-- Original: -3.18949 -3.59094 0 0 -0 0 -->
+      <pose>-0.668968 -1.09972 0 0 -0 0</pose> <!-- Original: -1.67242 -2.74931 0 0 -0 0 -->
       <name>Table_1</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-0.664404 -1.441344 0 0 -0 0</pose> <!-- Original: -1.66101 -3.60346 0 0 -0 0 -->
+      <pose>-1.275796 -1.436376 0 0 -0 0</pose> <!-- Original: -3.18949 -3.59094 0 0 -0 0 -->
       <name>Table_2</name>
     </include>
     <include>
       <uri>model://Table</uri>
-      <pose>-0.1450252 1.390664 0 0 -0 0</pose> <!-- Original: -0.362563 3.47666 0 0 -0 0 -->
+      <pose>-0.664404 -1.441344 0 0 -0 0</pose> <!-- Original: -1.66101 -3.60346 0 0 -0 0 -->
       <name>Table_3</name>
+    </include>
+    <include>
+      <uri>model://Table</uri>
+      <pose>-0.1450252 1.390664 0 0 -0 0</pose> <!-- Original: -0.362563 3.47666 0 0 -0 0 -->
+      <name>Table_4</name>
     </include>
     <include>
       <uri>model://Casual female</uri>

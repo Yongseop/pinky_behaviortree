@@ -45,7 +45,7 @@ def generate_launch_description():
         launch_arguments={
             'verbose': 'true',
             'physics': 'ode',
-            'lockstep': 'true',
+            'lockstep': 'false',
             'world': world_file_path
         }.items()
     )
@@ -70,7 +70,7 @@ def generate_launch_description():
     
     # pinky_upload_launch 및 컨트롤러 로드 명령어를 지연 실행 (예: 5초 후)
     delayed_actions = TimerAction(
-        period=5.0,  # 지연 시간 (초)
+        period=2.0,  # 지연 시간 (초)
         actions=[
             pinky_upload_launch
         ]

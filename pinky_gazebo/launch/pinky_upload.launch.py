@@ -48,7 +48,7 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
     
-     # 컨트롤러 로드 명령어 정의
+    # 컨트롤러 로드 명령어 정의
     load_joint_state_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_broadcaster'],
         output='screen'
