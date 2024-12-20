@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'lose_location = pinky_behaviortree.lose_location:main',
+            'amcl_particle_collector = pinky_behaviortree.amcl_particle_collector:main',
             'view_amcl_covariance = pinky_behaviortree.view_amcl_covariance:main',
         ],
     },
