@@ -9,12 +9,11 @@ from py_trees.decorators import Decorator
 from py_trees.composites import Selector
 from py_trees import logging as log_tree
 import py_trees
-from bt_check_localization import CheckLocalizationStatus
+from .bt_check_localization import CheckLocalizationStatus
 
 def make_bt():
-    root = Sequence(name="sequence", memory=True)
+    root = Selector(name="sequence", memory=True)
 
-    # CheckLocalizationStatus를 한 번만 추가
     check_status = CheckLocalizationStatus()
     root.add_child(check_status)
 
@@ -22,7 +21,7 @@ def make_bt():
 
 def main():
     rclpy.init(args=None)
-    log_tree.level = log_tree.Level.DEBUG
+    log_tree.level = log_tree.Level.INFO
 
     root = make_bt()
     tree = py_trees_ros.trees.BehaviourTree(

@@ -1,17 +1,9 @@
 ?
-|    ->
-|    |    [CheckSequence]
+|    [CheckLocalization]
+|    ->[Counter]
 |    |    ->
-|    |    |    [CheckLocalizationStatus]
-|    |    [SearchSequence]
+|    |    |    [detect]
+|    |    |    [arucoLocalization]
 |    |    ->
-|    |    |    (Counter max_count=10)
-|    |    |    ->
-|    |    |    |    [RotateStopSequence]
-|    |    |    |    ->
-|    |    |    |    |    [RotateRobot]
-|    |    |    |    |    [StopRobot]
-|    |    |    |    [DetectLocalizeSequence]
-|    |    |    |    ->
-|    |    |    |    |    [DetectMarker]
-|    |    |    |    |    [ArucoLocalization]
+|    |    |    [rotate]
+|    |    |    [stop]

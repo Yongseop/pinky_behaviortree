@@ -10,11 +10,9 @@ from py_trees import logging as log_tree
 import py_trees
 import py_trees.decorators
 
-from .bt_rotate_robot import RotateRobot
-from .bt_stop_robot import StopRobot
-from .bt_detect_marker import DetectMarker
 from .bt_check_localization import CheckLocalizationStatus
 from .bt_aruco_localization import ArucoLocalization
+from .bt_detect_marker import DetectMarker
 
 class Counter(py_trees.decorators.Decorator):
     def __init__(self, child, name="Counter", max_count=10):
@@ -50,29 +48,15 @@ def make_bt():
     check_status = CheckLocalizationStatus()
     root.add_child(check_status)
 
-    rotate_detect_sequence = Sequence(
-        name="RotateDetectSequence",
+    detect_sequence = Sequence(
+        name="DetectSequence",
         memory=True,
         children=[
-            Sequence(  # 회전 및 정지를 위한 하위 시퀀스
-                name="RotateStopSequence",
-                memory=True,
-                children=[
-                    RotateRobot(rotation_time=3.0),  # 3초 회전
-                    StopRobot(stop_time=1.0)         # 1초 정지
-                ]
-            ),
-            Sequence(  # 마커 감지 및 위치 보정을 위한 하위 시퀀스
-                name="DetectLocalizeSequence",
-                memory=True,
-                children=[
-                    DetectMarker(detection_time=2.0),  # 2초 동안 마커 감지
-                    ArucoLocalization()
-                ]
-            )
+            DetectMarker(detection_time=2.0),  # 2초 동안 마커 감지
+            ArucoLocalization()
         ]
     )
-    rotation_counter = Counter(child=rotate_detect_sequence, max_count=10)
+    rotation_counter = Counter(child=detect_sequence, max_count=10)
 
     root.add_children([rotation_counter])
 

@@ -69,6 +69,7 @@ class MarkerLocalization(Node):
             for marker_id, data in self.marker_positions.items():
                 yaml_data[f'marker_{marker_id}'] = {
                     'position': data['position'].tolist(),
+                    'orientation': data['orientation'].tolist(),
                     'marker_size': 0.5
                 }
             
@@ -82,7 +83,7 @@ class MarkerLocalization(Node):
         try:
             if self.current_robot_pose is None:
                 return
-                
+                    
             cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
             gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
             
@@ -106,22 +107,40 @@ class MarkerLocalization(Node):
                     yaw = np.arctan2(2.0 * (robot_quat.w * robot_quat.z + robot_quat.x * robot_quat.y),
                                     1.0 - 2.0 * (robot_quat.y * robot_quat.y + robot_quat.z * robot_quat.z))
                     
-                    # 마커의 위치를 map 좌표계로 변환
-                    marker_robot_x = tvecs[i][0][2]  # 카메라 z축이 로봇의 x축
-                    marker_robot_y = -tvecs[i][0][0]  # 카메라 -x축이 로봇의 y축
+                    # ArUco 카메라 좌표계 -> ROS 로봇 좌표계
+                    marker_robot_x = tvecs[i][0][2]  # 카메라 z축 -> ROS x축 (전진방향)
+                    marker_robot_y = -tvecs[i][0][0]  # 카메라 -x축 -> ROS y축 (왼쪽방향)
+                    marker_robot_z = -tvecs[i][0][1]  # 카메라 -y축 -> ROS z축 (위쪽방향)
+                    
+                    # 마커의 회전 벡터를 회전 행렬로 변환
+                    rotation_matrix, _ = cv2.Rodrigues(rvecs[i])
+                    
+                    # 카메라 좌표계에서의 회전 행렬을 ROS 로봇 좌표계로 변환
+                    R_cam_to_ros = np.array([[0, 0, 1],
+                                            [-1, 0, 0],
+                                            [0, -1, 0]])
+                    rotation_matrix_ros = R_cam_to_ros @ rotation_matrix
+
+                    # 회전 행렬을 쿼터니언으로 변환
+                    quat_wxyz = self.rotation_matrix_to_quaternion(rotation_matrix_ros)
                     
                     # 로봇 좌표를 map 좌표로 변환
                     marker_map_x = robot_pos.x + (marker_robot_x * np.cos(yaw) - marker_robot_y * np.sin(yaw))
                     marker_map_y = robot_pos.y + (marker_robot_x * np.sin(yaw) + marker_robot_y * np.cos(yaw))
-                    marker_map_z = tvecs[i][0][1]  # z 좌표는 그대로 유지
+                    marker_map_z = robot_pos.z + marker_robot_z
+
+                    # 마커의 방향을 map 좌표계로 변환
+                    marker_map_quat = self.multiply_quaternions(robot_quat, quat_wxyz)
                     
                     map_position = np.array([marker_map_x, marker_map_y, marker_map_z])
                     
+                    # 현재 검출된 마커의 위치와 방향 저장
                     self.current_detection[marker_id] = {
-                        'position': map_position
+                        'position': map_position,
+                        'orientation': marker_map_quat
                     }
                     
-                   #  self.get_logger().info(f'Marker {marker_id} at map position: {map_position}')
+                    # self.get_logger().info(f'Marker {marker_id} at map position: {map_position}, orientation: {marker_map_quat}')
             
             # 키 입력 처리
             key = cv2.waitKey(1)
@@ -136,6 +155,45 @@ class MarkerLocalization(Node):
                 
         except Exception as e:
             self.get_logger().error(f'Error in image_callback: {str(e)}')
+
+    def rotation_matrix_to_quaternion(self, R):
+        trace = np.trace(R)
+        if trace > 0:
+            S = np.sqrt(trace + 1.0) * 2
+            w = 0.25 * S
+            x = (R[2,1] - R[1,2]) / S
+            y = (R[0,2] - R[2,0]) / S
+            z = (R[1,0] - R[0,1]) / S
+        elif R[0,0] > R[1,1] and R[0,0] > R[2,2]:
+            S = np.sqrt(1.0 + R[0,0] - R[1,1] - R[2,2]) * 2
+            w = (R[2,1] - R[1,2]) / S
+            x = 0.25 * S
+            y = (R[0,1] + R[1,0]) / S
+            z = (R[0,2] + R[2,0]) / S
+        elif R[1,1] > R[2,2]:
+            S = np.sqrt(1.0 + R[1,1] - R[0,0] - R[2,2]) * 2
+            w = (R[0,2] - R[2,0]) / S
+            x = (R[0,1] + R[1,0]) / S
+            y = 0.25 * S
+            z = (R[1,2] + R[2,1]) / S
+        else:
+            S = np.sqrt(1.0 + R[2,2] - R[0,0] - R[1,1]) * 2
+            w = (R[1,0] - R[0,1]) / S
+            x = (R[0,2] + R[2,0]) / S
+            y = (R[1,2] + R[2,1]) / S
+            z = 0.25 * S
+        return np.array([w, x, y, z])
+
+    def multiply_quaternions(self, q1, q2):
+        w1, x1, y1, z1 = q1.w, q1.x, q1.y, q1.z
+        w2, x2, y2, z2 = q2
+        
+        w = w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2
+        x = w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2
+        y = w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2
+        z = w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2
+        
+        return np.array([w, x, y, z])
 
 def main(args=None):
     rclpy.init(args=args)
