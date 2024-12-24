@@ -16,8 +16,6 @@ from .bt_detect_marker import DetectMarker
 from .bt_check_localization import CheckLocalizationStatus
 from .bt_aruco_localization import ArucoLocalization
 
-from . import Counter 
-
 class Counter(py_trees.decorators.Decorator):
     def __init__(self, child, name="Counter", max_count=10):
         super().__init__(name=name, child=child)
