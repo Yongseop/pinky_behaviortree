@@ -1,9 +1,11 @@
 ?
-|    [CheckLocalization]
+|    ->[NavigationSequence]
+|    |    [NavigationManager]
 |    ->[Counter]
-|    |    ->
-|    |    |    [detect]
-|    |    |    [arucoLocalization]
-|    |    ->
-|    |    |    [rotate]
-|    |    |    [stop]
+|    |    ->[RotateDetectSequence]
+|    |    |    ->[RotateStopSequence]
+|    |    |    |    [RotateRobot]
+|    |    |    |    [StopRobot]
+|    |    |    ->[DetectLocalizeSequence]
+|    |    |    |    [DetectMarker]
+|    |    |    |    [ArucoLocalization]

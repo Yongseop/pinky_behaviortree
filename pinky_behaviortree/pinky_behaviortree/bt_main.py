@@ -120,7 +120,7 @@ def make_bt():
     # Points 정의
     nav_points = [
         create_pose(3.6, 1.4, 0.0),   # Point 1
-        create_pose(1.0, 1.0, 1.57),  # Point 2
+        create_pose(1.5, 1.0, 1.57),  # Point 2
         create_pose(1.6, -0.3, 3.14)   # Point 3
     ]
 
