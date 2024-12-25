@@ -20,6 +20,10 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
         self.feedback = None
         self.subscription = None
         self.latest_pose = None
+        
+        self.check_start_time = None
+        self.check_delay = 5.0 
+        self.check_enabled = False
 
         self.blackboard = self.attach_blackboard_client(name="NavigateToGoal")
         self.blackboard.register_key(key="action_client", access=py_trees.common.Access.WRITE)
@@ -30,11 +34,6 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
             'y_uncertainty': 0.06,
             'theta_uncertainty': 0.125
         }
-
-        ### (추가됨) 대기 관련 변수
-        self.waiting = True
-        self.wait_start_time = None
-        self.wait_duration = 10.0  # 4초
 
     def setup(self, **kwargs):
         try:
@@ -74,6 +73,17 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
                 self.node.get_logger().error(f'Setup failed: {str(e)}')
             return False
 
+    def initialise(self):
+        super().initialise()
+        self.check_start_time = time.time()
+        self.check_enabled = False
+        self.node.get_logger().info("[NavigateToGoal] 시작, uncertainty check는 3초 후에 활성화됩니다")
+
+    def reset_navigation_state(self):
+        self.send_goal_future = None
+        self.get_result_future = None
+        self.feedback = None
+
     def _default_goal(self):
         goal = PoseStamped()
         goal.header.frame_id = 'map'
@@ -108,64 +118,33 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
             if self.node:
                 self.node.get_logger().error(f"Failed to stop robot: {str(e)}")
 
-    ### (추가됨) 대기 관련 초기화
-    def initialise(self):
-        """
-        py_trees에서 Behaviour가 RUNNING 상태로 처음 돌입할 때 한 번만 호출되는 콜백
-        여기서 대기를 위한 시작시간 기록
-        """
-        super().initialise()
-        self.wait_start_time = time.time()
-        self.waiting = True
-        self.node.get_logger().info("[NavigateToGoal] initialise -> 대기 시작")
-
     def update(self):
-        """
-        - 최초 4초 동안은 RUNNING으로 대기
-        - 이후에 goal을 전송하고 기존 로직대로 진행
-        """
-        ### (추가됨) 4초 대기 로직
-        if self.waiting:
-            elapsed = time.time() - self.wait_start_time
-            if elapsed < self.wait_duration:
-                # 아직 4초가 안 됨 → RUNNING
-                return py_trees.common.Status.RUNNING
-            else:
-                # 4초가 지남 → 더는 대기하지 않음
-                self.waiting = False
-                self.node.get_logger().info("[NavigateToGoal] 대기 완료. 네비게이션 시작")
+        """메인 업데이트 로직"""
+        if not self.check_enabled:
+            elapsed = time.time() - self.check_start_time
+            if elapsed >= self.check_delay:
+                self.check_enabled = True
+                self.node.get_logger().info("[NavigateToGoal] Uncertainty check 활성화됨")
 
-        # -----------------------------------
-        # 이하부터는 기존 네비게이션 로직
-        # -----------------------------------
-        if self.check_localization():
-            self.node.get_logger().warn("High localization uncertainty detected")
-            
-            if self.send_goal_future and self.send_goal_future.done():
-                goal_handle = self.send_goal_future.result()
-                if goal_handle and goal_handle.accepted:
-                    goal_handle.cancel_goal_async()
-            self.stop_robot()
-            return py_trees.common.Status.FAILURE
-
-        # goal이 아직 없다면, 목표 전송
+        # Navigation 로직
         if not self.send_goal_future:
             goal_msg = NavigateToPose.Goal()
             goal_msg.pose = self.goal_pose
+            goal_msg.pose.header.stamp = self.node.get_clock().now().to_msg()
             
             self.send_goal_future = self.action_client.send_goal_async(
                 goal_msg,
                 feedback_callback=self.feedback_callback
             )
             self.blackboard.goal_future = self.send_goal_future
-            self.node.get_logger().info("[NavigateToGoal] Goal 전송")
+            self.node.get_logger().info("[NavigateToGoal] New goal 전송")
             return py_trees.common.Status.RUNNING
 
-        # goal_future가 done()이면, goal_handle 확인
         if self.send_goal_future.done():
             goal_handle = self.send_goal_future.result()
             if not goal_handle.accepted:
                 self.node.get_logger().error('Goal rejected')
+                self.reset_navigation_state()
                 return py_trees.common.Status.FAILURE
 
             if not self.get_result_future:
@@ -179,7 +158,19 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
                     return py_trees.common.Status.SUCCESS
                 except Exception as e:
                     self.node.get_logger().error(f'Navigation failed: {str(e)}')
+                    self.reset_navigation_state()
                     return py_trees.common.Status.FAILURE
+
+        # Uncertainty 체크 (check_enabled일 때만)
+        if self.check_enabled and self.check_localization():
+            self.node.get_logger().warn("High localization uncertainty detected")
+            if self.send_goal_future and self.send_goal_future.done():
+                goal_handle = self.send_goal_future.result()
+                if goal_handle and goal_handle.accepted:
+                    goal_handle.cancel_goal_async()
+            self.stop_robot()
+            self.reset_navigation_state()
+            return py_trees.common.Status.FAILURE
                     
         return py_trees.common.Status.RUNNING
 
@@ -187,12 +178,15 @@ class NavigateToGoal(py_trees.behaviour.Behaviour):
         self.feedback = feedback_msg.feedback
 
     def terminate(self, new_status):
+        """Behaviour가 종료될 때 호출되는 콜백"""
         if new_status == py_trees.common.Status.FAILURE:
             self.stop_robot()
         
         if self.action_client and self.send_goal_future:
             if not self.send_goal_future.done():
                 self.send_goal_future.cancel()
+        
+        self.reset_navigation_state()
 
 class NavigationMonitor(py_trees.behaviour.Behaviour):
     def __init__(self, name="NavigationMonitor"):

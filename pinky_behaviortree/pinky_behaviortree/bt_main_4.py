@@ -1,3 +1,108 @@
+import rclpy
+import py_trees_ros
+from py_trees.behaviour import Behaviour
+from py_trees.common import Status
+from py_trees.composites import Sequence
+from py_trees.decorators import Inverter
+from py_trees.decorators import Decorator
+from py_trees.composites import Selector
+from py_trees import logging as log_tree
+import py_trees
+import py_trees.decorators
+import time
+from geometry_msgs.msg import Twist
+
+from .bt_rotate_robot import RotateRobot
+from .bt_stop_robot import StopRobot
+from .bt_detect_marker import DetectMarker
+from .bt_check_localization import CheckLocalizationStatus
+from .bt_aruco_localization import ArucoLocalization
+from .bt_navigate_to_goal import NavigateToGoal, NavigationMonitor
+
+class Counter(py_trees.decorators.Decorator):
+    def __init__(self, child, name="Counter", max_count=10):
+        super().__init__(name=name, child=child)
+        self.max_count = max_count
+        self.count = 0
+        self.node = None
+        self.navigation_cancelled = False
+        self.cmd_vel_publisher = None
+        self.blackboard = self.attach_blackboard_client(name="Counter")
+        self.blackboard.register_key(key="action_client", access=py_trees.common.Access.WRITE)
+        self.blackboard.register_key(key="goal_future", access=py_trees.common.Access.WRITE)
+
+    def setup(self, **kwargs):
+        try:
+            self.node = kwargs.get('node')
+            if not self.node:
+                self.node = rclpy.create_node('counter_node')
+
+            # cmd_vel publisher 추가
+            self.cmd_vel_publisher = self.node.create_publisher(
+                Twist,
+                '/cmd_vel',
+                10
+            )
+            return True
+        except Exception as e:
+            if self.node:
+                self.node.get_logger().error(f'Counter setup failed: {str(e)}')
+            return False
+
+    def stop_robot(self):
+        """로봇을 강제로 정지"""
+        stop_cmd = Twist()
+        for _ in range(10):  # 여러번 publish
+            self.cmd_vel_publisher.publish(stop_cmd)
+            time.sleep(0.1)
+
+    def update(self):
+        # Navigation 취소 및 로봇 정지
+        if not self.navigation_cancelled:
+            # 1. goal 취소
+            if self.blackboard.exists('goal_future'):
+                goal_future = self.blackboard.goal_future
+                if goal_future and not goal_future.done():
+                    self.node.get_logger().info("Canceling current navigation goal")
+                    goal_future.cancel()
+                    # Clear the goal_future from blackboard
+                    self.blackboard.goal_future = None
+            
+            # 2. 로봇 강제 정지
+            self.stop_robot()
+            
+            # 3. navigation2가 완전히 취소되길 기다림
+            time.sleep(1.0)
+            
+            self.navigation_cancelled = True
+
+        if self.count >= self.max_count:
+            return py_trees.common.Status.FAILURE
+
+        status = self.decorated.status
+        if status == py_trees.common.Status.SUCCESS:
+            self.node.get_logger().info("Marker detection succeeded, resetting navigation state")
+            # Navigation 상태 초기화
+            self.navigation_cancelled = False
+            if hasattr(self.blackboard, 'goal_future'):
+                self.blackboard.goal_future = None
+            return py_trees.common.Status.SUCCESS
+            
+        elif status == py_trees.common.Status.FAILURE:
+            self.count += 1
+            if self.count >= self.max_count:
+                return py_trees.common.Status.FAILURE
+            return py_trees.common.Status.RUNNING
+            
+        return py_trees.common.Status.RUNNING
+
+    def initialise(self):
+        """Reset counter state when starting"""
+        self.count = 0
+        self.navigation_cancelled = False
+        if hasattr(self.blackboard, 'goal_future'):
+            self.blackboard.goal_future = None
+
 def make_bt():
     root = Selector(name="Root", memory=True)
 
@@ -38,3 +143,36 @@ def make_bt():
     root.add_child(rotation_counter)
 
     return root
+
+def main():
+    rclpy.init(args=None)
+    log_tree.level = log_tree.Level.INFO
+
+    root = make_bt()
+    tree = py_trees_ros.trees.BehaviourTree(
+        root=root,
+        unicode_tree_debug=True
+    )
+
+    tree.setup(timeout=15)
+    tree.tick_tock(period_ms=100.0)
+
+    node = tree.node
+
+    try:
+        while rclpy.ok():
+            # if root.status == py_trees.common.Status.SUCCESS:
+            #     node.get_logger().info("작업이 성공적으로 완료되었습니다. 종료합니다.")
+            #     break
+            # elif root.status == py_trees.common.Status.FAILURE:
+            #     node.get_logger().info("작업이 실패했습니다. 종료합니다.")
+            #     break
+            rclpy.spin_once(node, timeout_sec=0.1)
+    except KeyboardInterrupt:
+        node.get_logger().info("키보드 인터럽트 발생. 종료합니다.")
+    finally:
+        tree.shutdown()
+        rclpy.try_shutdown()
+
+if __name__ == '__main__':
+    main()
