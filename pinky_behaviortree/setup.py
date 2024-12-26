@@ -10,7 +10,6 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name, ['pinky_behaviortree/marker_positions.yaml']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -21,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'bt_main = pinky_behaviortree.bt_main:main',
+            'view_amcl_covariance = pinky_behaviortree.view_amcl_covariance:main',
         ],
     },
 )
