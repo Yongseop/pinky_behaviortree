@@ -20,9 +20,9 @@ class CheckLocalizationStatus(py_trees.behaviour.Behaviour):
         self.is_terminated = False
         
         self.thresholds = {
-            'x_uncertainty': 0.012,
-            'y_uncertainty': 0.012,
-            'theta_uncertainty': 0.025
+            'x_uncertainty': 0.020,
+            'y_uncertainty': 0.020,
+            'theta_uncertainty': 0.045
         }
         
     def setup(self, **kwargs):

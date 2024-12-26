@@ -1,0 +1,9 @@
+?
+|    [CheckLocalization]
+|    ->[Counter]
+|    |    ->
+|    |    |    [detect]
+|    |    |    [arucoLocalization]
+|    |    ->
+|    |    |    [rotate]
+|    |    |    [stop]

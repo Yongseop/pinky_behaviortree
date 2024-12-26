@@ -22,6 +22,7 @@ setup(
     entry_points={
         'console_scripts': [
             'bt_main = pinky_behaviortree.bt_main:main',
+            'collect_marker = pinky_behaviortree.collect_marker:main',
         ],
     },
 )
