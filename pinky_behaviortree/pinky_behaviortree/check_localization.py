@@ -2,9 +2,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from geometry_msgs.msg import Twist
-from nav2_msgs.msg import ParticleCloud
 import math
-import csv
 import numpy as np
 from rclpy.qos import QoSProfile, ReliabilityPolicy
 
@@ -21,27 +19,19 @@ class AMCL_Monitor(Node):
             self.amcl_pose_callback,
             qos
         )
-        self.particle_subscription = self.create_subscription(
-            ParticleCloud,
-            '/particle_cloud',
-            self.particle_cloud_callback,
-            qos
-        )
 
         self.cmd_vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
 
         self.latest_pose = None
-        self.particle_data = []
         self.amcl_data = []
         self.start_time = self.get_clock().now()
         self.toggle_direction = True
         self.baseline_calculated = False
 
         self.thresholds = {
-            'x_uncertainty': 0.012,
-            'y_uncertainty': 0.012,
-            'theta_uncertainty': 0.025,
-            'y_variance': 0.01
+            'x_uncertainty': 0.020,
+            'y_uncertainty': 0.020,
+            'theta_uncertainty': 0.045
         }
 
         self.create_timer(1.25, self.publish_cmd_vel)
@@ -67,27 +57,6 @@ class AMCL_Monitor(Node):
         if elapsed_time >= 10.0 and not self.baseline_calculated:
             self.baseline_calculated = True
             self.calculate_baseline_and_check()
-
-    def particle_cloud_callback(self, msg):
-        particle_positions = [(p.pose.position.x, p.pose.position.y) for p in msg.particles]
-        weights = [p.weight for p in msg.particles]
-
-        x_positions = [pos[0] for pos in particle_positions]
-        y_positions = [pos[1] for pos in particle_positions]
-
-        x_variance = np.var(x_positions)
-        y_variance = np.var(y_positions)
-        max_weight = max(weights) if weights else 0.0
-        mean_weight = np.mean(weights) if weights else 0.0
-
-        self.particle_data.append({
-            "timestamp": self.get_clock().now().to_msg().sec,
-            "x_variance": x_variance,
-            "y_variance": y_variance,
-            "max_weight": max_weight,
-            "mean_weight": mean_weight,
-            "initial_pose_set": False
-        })
 
     def publish_cmd_vel(self):
         current_time = self.get_clock().now()
@@ -151,26 +120,13 @@ class AMCL_Monitor(Node):
         else:
             self.get_logger().info('Localization status: OK')
 
-    def save_to_csv(self):
-        with open('amcl_pose_data.csv', 'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=["timestamp", "x_uncertainty", "y_uncertainty", "theta_uncertainty", "initial_pose_set"])
-            writer.writeheader()
-            writer.writerows(self.amcl_data)
-
-        with open('particle_cloud_data.csv', 'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=["timestamp", "x_variance", "y_variance", "max_weight", "mean_weight", "initial_pose_set"])
-            writer.writeheader()
-            writer.writerows(self.particle_data)
-
-        self.get_logger().info('Data saved to CSV files')
-
 def main(args=None):
     rclpy.init(args=args)
     node = AMCL_Monitor()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        node.save_to_csv()
+        pass
     finally:
         node.destroy_node()
         rclpy.shutdown()

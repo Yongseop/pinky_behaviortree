@@ -2,30 +2,22 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from geometry_msgs.msg import Twist
-from nav2_msgs.msg import ParticleCloud
 import math
 import csv
-import numpy as np
 from rclpy.qos import QoSProfile, ReliabilityPolicy
 
-class AMCL_Particle_Subscriber(Node):
+class AMCL_Subscriber(Node):
     def __init__(self):
         super().__init__('amcl_pose_subscriber')
 
         qos = QoSProfile(depth=10)
         qos.reliability = ReliabilityPolicy.BEST_EFFORT 
         
-        # Subscriptions
+        # Subscription
         self.subscription = self.create_subscription(
             PoseWithCovarianceStamped,
             '/amcl_pose',
             self.amcl_pose_callback,
-            qos
-        )
-        self.particle_subscription = self.create_subscription(
-            ParticleCloud,
-            '/particle_cloud',
-            self.particle_cloud_callback,
             qos
         )
 
@@ -39,7 +31,6 @@ class AMCL_Particle_Subscriber(Node):
 
         # State variables
         self.latest_pose = None
-        self.particle_data = []
         self.amcl_data = []
         self.shutdown = False
         self.initial_pose_time = None  # Time when initial pose is set
@@ -63,30 +54,6 @@ class AMCL_Particle_Subscriber(Node):
             "theta_uncertainty": theta_uncertainty,
             "initial_pose_set": self.initial_pose_time is not None
         })
-
-    def particle_cloud_callback(self, msg):
-        particle_positions = [(p.pose.position.x, p.pose.position.y) for p in msg.particles]
-        weights = [p.weight for p in msg.particles]  # 추가된 weight 정보
-
-        x_positions = [pos[0] for pos in particle_positions]
-        y_positions = [pos[1] for pos in particle_positions]
-
-        x_variance = np.var(x_positions)
-        y_variance = np.var(y_positions)
-        max_weight = max(weights) if weights else 0.0
-        mean_weight = np.mean(weights) if weights else 0.0
-
-        # Save to particle data list
-        self.particle_data.append({
-            "timestamp": self.get_clock().now().to_msg().sec,
-            "x_variance": x_variance,
-            "y_variance": y_variance,
-            "max_weight": max_weight,
-            "mean_weight": mean_weight,
-            "initial_pose_set": self.initial_pose_time is not None
-        })
-
-        print(f'Particle Cloud Variance: x={x_variance:.4f}, y={y_variance:.4f}, max_weight={max_weight:.4f}, mean_weight={mean_weight:.4f}')
 
     def publish_cmd_vel(self):
         twist = Twist()
@@ -132,12 +99,6 @@ class AMCL_Particle_Subscriber(Node):
             writer = csv.DictWriter(csvfile, fieldnames=["timestamp", "x_uncertainty", "y_uncertainty", "theta_uncertainty", "initial_pose_set"])
             writer.writeheader()
             writer.writerows(self.amcl_data)
-
-        with open('particle_cloud_data.csv', 'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=["timestamp", "x_variance", "y_variance", "max_weight", "mean_weight", "initial_pose_set"])
-            writer.writeheader()
-            writer.writerows(self.particle_data)
-
         print('Data saved to CSV.')
 
     def delayed_shutdown(self):
@@ -145,14 +106,12 @@ class AMCL_Particle_Subscriber(Node):
         print('Shutting down node now.')
         rclpy.shutdown()
 
-
 def main(args=None):
     rclpy.init(args=args)
-    node = AMCL_Particle_Subscriber()
+    node = AMCL_Subscriber()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
