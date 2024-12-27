@@ -16,7 +16,6 @@ import math
 from .bt_rotate_robot import RotateRobot
 from .bt_stop_robot import StopRobot
 from .bt_detect_marker import DetectMarker
-from .bt_check_localization import CheckLocalizationStatus
 from .bt_aruco_localization import ArucoLocalization
 from .bt_navigate_to_goal import NavigateToGoal, NavigationMonitor
 from .bt_navigation_manager import NavigationManager
