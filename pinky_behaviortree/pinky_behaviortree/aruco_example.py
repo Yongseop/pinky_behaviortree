@@ -10,7 +10,7 @@ camera_matrix = np.array([[800, 0, 320],
                          [0, 800, 240],
                          [0, 0, 1]], dtype=np.float32)
 dist_coeffs = np.zeros((5,1), dtype=np.float32)
-
+parameters = aruco.DetectorParameters_create()
 # ArUco 설정 - 수정된 부분
 aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 detector = cv2.aruco.ArucoDetector(aruco_dict)
